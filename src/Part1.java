@@ -97,6 +97,8 @@ public class Part1 implements PartInterface {
                     "%6d\tCOLL TIME IN SECS (SHA256, MD5)-> (%15d, %15d)",
                     fileobj.getLength(),SHA256, MD5, MD5 - SHA256, ColTimeSha256Secs, ColTimeMD5Secs));
         }
+
+        results.add("\nCPU-related specs: Z7 MOBO, i7 4790k CPU, 16GB 1333Hz RAM");
     }
 
     @Override

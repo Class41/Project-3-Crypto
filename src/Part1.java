@@ -10,7 +10,7 @@ import java.util.Map;
 public class Part1 implements PartInterface {
 
     List<FileObject> fobjs = new ArrayList<>();
-    final int[] sizes = new int[]{1, 128, 256, 257, 400, 512, 1024, 4096};
+    final int[] sizes = new int[]{1, 16, 64, 257, 400, 512, 1024, 4096};
     List <String> results = new ArrayList<>();
 
 
@@ -82,14 +82,20 @@ public class Part1 implements PartInterface {
 
 
 
+    final double AVG_HASHES_UNTIL_COLLISION_SHA_256 = Math.pow(2, 256/2);
+    final double AVG_HASHES_UNTIL_COLLISION_MD5 = Math.pow(2, 128/2);
+
     public void TestRunner()
     {
         for (FileObject fileobj: fobjs) {
             long MD5 = HashTimer(fileobj.getFile(), fileobj.getLength(), "MD5");
             long SHA256 = HashTimer(fileobj.getFile(), fileobj.getLength(), "SHA-256");
-            long ColTimeMD5 = MD5/;
-            long ColTimeSha256;
-            results.add(String.format("\nFor size: %8d SHA-256-> %6d\tMD5-> %6d\tDIFF(MD5-SHA256)-> %6d", fileobj.getLength(),SHA256, MD5, MD5 - SHA256));
+
+            long ColTimeMD5Secs = (long)((double)AVG_HASHES_UNTIL_COLLISION_MD5/(double)MD5);
+            long ColTimeSha256Secs = (long)((double)AVG_HASHES_UNTIL_COLLISION_SHA_256/(double)SHA256);
+            results.add(String.format("\nFor size: %8d SHA-256-> %6d\tMD5-> %6d\tDIFF(MD5-SHA256)-> " +
+                    "%6d\tCOLL TIME IN SECS (SHA256, MD5)-> (%15d, %15d)",
+                    fileobj.getLength(),SHA256, MD5, MD5 - SHA256, ColTimeSha256Secs, ColTimeMD5Secs));
         }
     }
 

@@ -44,6 +44,17 @@ public class Part2 implements PartInterface {
         }
 
         private long hashesGenerated;
+
+        public long getTimePassedSinceStart() {
+            return timePassedSinceStart;
+        }
+
+        public ResultObject setTimePassedSinceStart(long timePassedSinceStart) {
+            this.timePassedSinceStart = timePassedSinceStart;
+            return this;
+        }
+
+        private long timePassedSinceStart;
     }
 
     public Part2() {
@@ -74,6 +85,7 @@ public class Part2 implements PartInterface {
     public List<ResultObject> HashAndCheck(String matchString, int numMatches) {
         int matchCount = 1;
         int hashesGenerated = 0;
+        long timeStarted = System.nanoTime();
 
         System.out.println("Working on generating hashes...please wait\n\nResults tally:\n");
         List<ResultObject> results = new ArrayList<ResultObject>();
@@ -85,7 +97,7 @@ public class Part2 implements PartInterface {
 
                 if (result.startsWith(matchString.substring(0, matchCount))) {
                     System.out.print(".");
-                    results.add(new ResultObject().setHash(result).setValue(bits).setHashesGenerated(hashesGenerated));
+                    results.add(new ResultObject().setHash(result).setValue(bits).setHashesGenerated(hashesGenerated).setTimePassedSinceStart(System.nanoTime() - timeStarted));
                     matchCount++;
                 }
             }
@@ -103,8 +115,11 @@ public class Part2 implements PartInterface {
 
     @Override
     public void PrintResult() {
+        System.out.println("");
         for (ResultObject result : resultSet) {
-            System.out.println(String.format("%s produces-> %s (after %d hashes)", result.getValue().toString(2), result.getHash(), result.getHashesGenerated()));
+            System.out.println(String.format("%s produces-> %s (after %d hashes, %d ns) %f ns/hash", result.getValue().toString(2),
+                    result.getHash(), result.getHashesGenerated(), result.getTimePassedSinceStart(),
+                    ((double)result.getTimePassedSinceStart() / (double)result.getHashesGenerated())));
         }
     }
 }

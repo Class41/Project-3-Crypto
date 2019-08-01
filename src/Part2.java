@@ -1,55 +1,52 @@
-import javax.xml.transform.Result;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.sql.ResultSet;
-import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Part2 implements PartInterface {
 
-    BigInteger bits = new BigInteger("0");
-    List<ResultObject> resultSet = null;
+    private BigInteger bits = new BigInteger("0");
+    private List<ResultObject> resultSet = null;
 
     public class ResultObject {
         private BigInteger value;
 
-        public BigInteger getValue() {
+        BigInteger getValue() {
             return value;
         }
 
-        public ResultObject setValue(BigInteger value) {
+        ResultObject setValue(BigInteger value) {
             this.value = value;
             return this;
         }
 
         private String hash;
 
-        public String getHash() {
+        String getHash() {
             return hash;
         }
 
-        public ResultObject setHash(String hash) {
+        ResultObject setHash(String hash) {
             this.hash = hash;
             return this;
         }
 
-        public long getHashesGenerated() {
+        long getHashesGenerated() {
             return hashesGenerated;
         }
 
-        public ResultObject setHashesGenerated(long hashesGenerated) {
+        ResultObject setHashesGenerated(long hashesGenerated) {
             this.hashesGenerated = hashesGenerated;
             return this;
         }
 
         private long hashesGenerated;
 
-        public long getTimePassedSinceStart() {
+        long getTimePassedSinceStart() {
             return timePassedSinceStart;
         }
 
-        public ResultObject setTimePassedSinceStart(long timePassedSinceStart) {
+        ResultObject setTimePassedSinceStart(long timePassedSinceStart) {
             this.timePassedSinceStart = timePassedSinceStart;
             return this;
         }
@@ -64,11 +61,11 @@ public class Part2 implements PartInterface {
         System.out.println("\n** Part 2 END **");
     }
 
-    public void IncrementBinary() {
+    private void IncrementBinary() {
         bits = bits.add(BigInteger.ONE);
     }
 
-    public String AttemptHash(String binaryString, MessageDigest messageDigest) {
+    private String AttemptHash(String binaryString, MessageDigest messageDigest) {
         byte[] hashResult;
         String hashResultString = "";
         try {
@@ -82,7 +79,7 @@ public class Part2 implements PartInterface {
         return hashResultString;
     }
 
-    public List<ResultObject> HashAndCheck(String matchString, int numMatches) {
+    private List<ResultObject> HashAndCheck(String matchString, int numMatches) {
         int matchCount = 1;
         int hashesGenerated = 0;
         long timeStarted = System.nanoTime();

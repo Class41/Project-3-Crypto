@@ -1,61 +1,56 @@
-import sun.plugin2.message.Message;
-
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 
 public class Part3 implements PartInterface {
 
-    public ReturnValue resval;
+    private ReturnValue resval;
 
     class ReturnValue {
 
-        public ReturnValue()
+        ReturnValue()
         {
-            output = "";
+            weight = 21470000;
         }
 
-        public String input;
+        String input;
 
-        public String getOutput() {
+        String getOutput() {
             return output;
         }
 
-        public ReturnValue setOutput(String output) {
+        void setOutput(String output) {
             this.output = output;
-            return this;
         }
 
-        public String output;
+        String output;
 
-        public int getWeight() {
+        int getWeight() {
             return weight;
         }
 
-        public ReturnValue setWeight(int weight) {
+        void setWeight(int weight) {
             this.weight = weight;
-            return this;
         }
 
-        public int weight;
+        private int weight;
 
-        public String getInput() {
+        String getInput() {
             return input;
         }
 
-        public ReturnValue setInput(String input) {
+        void setInput(String input) {
             this.input = input;
-            return this;
         }
     }
 
-    public Part3() {
+    Part3() {
         System.out.println("\n** Part 3 START **");
         Execute();
         PrintResult();
         System.out.println("\n** Part 3 END **");
     }
 
-    public String AttemptHash(String data, MessageDigest messageDigest) {
+    private String AttemptHash(String data, MessageDigest messageDigest) {
         byte[] hashResult;
         String hashResultString = "";
         try {
@@ -68,7 +63,7 @@ public class Part3 implements PartInterface {
         return hashResultString;
     }
 
-    public ReturnValue GetLowestHashValue() {
+    private ReturnValue GetLowestHashValue() {
         ReturnValue returnVal = new ReturnValue();
         MessageDigest md = null;
 
@@ -79,16 +74,19 @@ public class Part3 implements PartInterface {
             System.exit(-1);
         }
 
-        long currentTime = System.nanoTime();
-        String output = "";
+        String output;
 
-        while (currentTime > System.nanoTime() + 10e9) {
+        long currentTime = System.nanoTime();
+
+        while (System.nanoTime() < currentTime + 10e9) {
             String input = GenerateStringRand();
             returnVal.setInput(input);
             output = AttemptHash(input, md);
 
-            if(CalculateStringWeight(returnVal.getOutput()) > CalculateStringWeight(output))
+            if(returnVal.getWeight() > CalculateStringWeight(output)) {
                 returnVal.setOutput(output);
+                returnVal.setWeight(CalculateStringWeight(output));
+            }
         }
 
         return returnVal;
@@ -104,15 +102,15 @@ public class Part3 implements PartInterface {
         return total;
     }
 
-    static char[] allEnglishCharacters;
+    private static char[] allEnglishCharacters;
 
-    public String GenerateStringRand() {
-        String val = "";
+    private String GenerateStringRand() {
+        StringBuilder val = new StringBuilder();
         SecureRandom srand = new SecureRandom();
         for (int i = 0; i < 64; i++) {
-            val += allEnglishCharacters[srand.nextInt(25)];
+            val.append(allEnglishCharacters[srand.nextInt(25)]);
         }
-        return val;
+        return val.toString();
     }
 
     @Override

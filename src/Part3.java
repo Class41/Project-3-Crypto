@@ -5,7 +5,7 @@ public class Part3 implements PartInterface {
     }
 
     @Override
-    public void printResult() {
+    public void PrintResult() {
 
     }
 }

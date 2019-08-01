@@ -1,4 +1,4 @@
 public interface PartInterface {
     public void Execute();
-    public void printResult();
+    public void PrintResult();
 }

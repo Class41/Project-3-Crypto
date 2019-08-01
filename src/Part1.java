@@ -2,10 +2,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.security.MessageDigest;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Part1 implements PartInterface {
 
@@ -17,7 +15,7 @@ public class Part1 implements PartInterface {
     public Part1() {
         System.out.println("\n** Part 1 START **");
         Execute();
-        printResult();
+        PrintResult();
         System.out.println("\n** Part 1 END **");
     }
 
@@ -108,7 +106,7 @@ public class Part1 implements PartInterface {
     }
 
     @Override
-    public void printResult() {
+    public void PrintResult() {
         for (String result : results) {
             System.out.println(result);
         }

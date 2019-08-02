@@ -85,18 +85,17 @@ public class Part3 implements PartInterface {
 
             while (System.nanoTime() < currentTime + (timeInSecondsSet * 1e9)) {
                 String input = GenerateStringRand();
-                returnValTemp.setInput(input);
+                returnVal.setInput(input);
                 output = AttemptHash(input, md);
 
                 if (returnValTemp.getWeight() > CalculateStringWeight(output)) {
-                    returnValTemp.setOutput(output);
+                    returnVal.setOutput(output);
                     returnValTemp.setWeight(CalculateStringWeight(output));
                 }
             }
         }
 
         returnVal.setWeight(returnVal.getWeight() + returnValTemp.getWeight());
-
         returnVal.setWeight(returnVal.getWeight() / 10);
         return returnVal;
     }

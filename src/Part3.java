@@ -13,6 +13,16 @@ public class Part3 implements PartInterface {
             weight = 21470000;
         }
 
+        public long getTime() {
+            return time;
+        }
+
+        public void setTime(long time) {
+            this.time = time;
+        }
+
+        long time;
+
         String input;
 
         String getOutput() {
@@ -95,6 +105,7 @@ public class Part3 implements PartInterface {
             }
         }
 
+        returnVal.setTime(timeInSecondsSet);
         returnVal.setWeight(returnVal.getWeight() + returnValTemp.getWeight());
         returnVal.setWeight(returnVal.getWeight() / 10);
         return returnVal;
@@ -134,7 +145,7 @@ public class Part3 implements PartInterface {
     @Override
     public void PrintResult() {
         for (ReturnValue resVal : resValSet) {
-            System.out.println(String.format("Input String: %s-> Hash String: %s->\tWeight: %d", resVal.getInput(), resVal.getOutput(), resVal.getWeight()));
+            System.out.println(String.format("%d seconds: Input String: %s-> Hash String: %s->\tWeight: %d", resVal.getTime(), resVal.getInput(), resVal.getOutput(), resVal.getWeight()));
         }
     }
 }
